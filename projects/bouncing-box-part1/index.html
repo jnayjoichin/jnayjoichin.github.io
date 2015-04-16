@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Bouncing Box</title>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+	<!-- BEGIN CSS -->
+	<style>
+		/* TODO 1 */
+		.box {
+			display: block;
+			position: absolute;
+			width: 70px;
+			height: 70px;
+			top: 100px;
+			left: 0px;
+			background-color: teal;
+			font-size: 300%;
+			text-align: center;
+		}
+	</style>
+	
+
+</head>
+<body class="board">
+	<!-- HTML for the box -->
+	<div class="box">?</div>
+
+	<!-- BEGIN JAVASCRIPT -->
+	<script>
+		// Variable declarations
+		var box;
+		var boardWidth;
+		var update;
+		var handleBoxClick;
+		var randomHexColor;
+
+		// jQuery stuff setup for you
+		box = $('.box');
+		boardWidth = $('.board').width();
+		
+
+		// TODO 2
+		var position;
+		var points;
+		var speed;
+		var yPosition = 500*Math.random();
+		
+		
+		
+		position = 45;
+		points = 45;
+		speed = 10;
+		yPosition = 0;
+		var direction =1;
+		
+		randomHexColor = function() {
+			var randomHexNum = function() {
+				return (Math.floor(Math.random()*255) + 1).toString(16);
+			};
+			var result ="#" + randomHexNum() + randomHexNum() + randomHexNum();
+			return result;
+		};
+
+
+		// TODO 3 / 4
+		update = function() {
+			position= position+(speed* direction);
+			box.css("left", position);
+			box.text(points);
+		
+			if(position> boardWidth) {
+				direction = -1;
+				
+			}
+			if(position < 0){
+				direction = 1;
+			}
+		};
+
+		setInterval(update, 50);
+		
+		// TODO 5 / 6
+		handleBoxClick = function() {
+			box.css('background-color', randomHexColor());
+			speed = speed + 3;
+			position = 0;
+			points = points + 1;
+		};
+
+		// this calls the handle handleBoxClick function every time the box is clicked on
+		box.on('click', handleBoxClick);
+	</script>
+</body>
+</html>
